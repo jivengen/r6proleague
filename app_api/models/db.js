@@ -7,4 +7,4 @@ console.log("DB STUFF");
 mongoose.Promise = global.Promise;
 
 //Bring in your schmas ^ models
-require('./teams');
+require('./y2s3');

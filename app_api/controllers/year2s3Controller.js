@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
-var TeamData = mongoose.model('teamdata');
+var TeamData = mongoose.model('y2s3data');
 
+var sendJSONresponse = function(res, status, content){
+    res.status(status);
+    res.json(content);
+}
 console.log("above controller");
 
 module.exports.findTeam = function(req, res, next){
@@ -11,18 +15,14 @@ module.exports.findTeam = function(req, res, next){
         TeamData.find({"team": team},{_id:0}, function (err, teamdatas){
             if(err){
                 console.log("Error in controller");
-                return console.error(err);
+                console.log(err);
+                sendJSONresponse(res, 404, err);
+                //return console.error(err)
                 
             }else{
                 console.log("right spot of controller");
-                var output = "";
-            teamdatas.forEach(function(teamdata){
-           console.log(teamdata.player);
-          output += "Player: " + teamdata.player + "<br>";
-                });
+                sendJSONresponse(res,200,teamdatas);
             }
-            res.render('index', {title: team, outputs: output})
-            
         });
-        
-}
+};
+                
